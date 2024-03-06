@@ -1,0 +1,22 @@
+#Descompactar 
+gunzip *
+
+#Passo1:verificar qualidade sequenciamento [FastQC]
+fastqc *.gz
+
+#Passo2: Trimar as sequencias brutas [Trimmomatic]
+source auto_trim2.sh *
+
+
+#Passo3: Olhar a qualidade novamente [FastQC] 
+fastqc *
+
+#montar os metagenomas [MetaSPADes]
+/home/sheila.silva.bio/Tools/spades/SPAdes-3.14.1-Linux/bin/metaspades.py --pe1-1 ~/Primeagro/ --pe1-2 ~/Primeagro -o ~/Primeagro/03-Metaspades
+
+#Passo5: Rodar o programa de estatísticas de montagem [MetaQuast]
+conda activate python2.7
+metaquast.py 367_scaffolds.fasta -t 8 -o metaquast_368/
+
+
+ 

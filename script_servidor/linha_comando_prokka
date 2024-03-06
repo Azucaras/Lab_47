@@ -1,0 +1,3 @@
+conda activate prokka_env
+
+ls *.fna | parallel --verbose "prokka --metagenome {} --prefix {.}_out --outdir ~/prokka_out/{.}_prokka --cpus 8"

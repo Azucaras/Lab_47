@@ -1,0 +1,381 @@
+#STEP1: TRIMMOMATIC
+#Metagenoma: C1A
+Input Read Pairs: 340599 Both Surviving: 304241 (89.33%) Forward Only Surviving: 23082 (6.78%) Reverse Only Surviving: 7962 (2.34%) Dropped: 5314 (1.56%)
+$ trimmomatic PE /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-C1-A_R1.fastq  /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-C1-A_R2.fastq C1A_R1_trimmed.fastq C1A_R1_trimmed_UNP.fastq C1A_R2_trimmed.fastq C1A_R2_trimmed_UNP.fastq SLIDINGWINDOW:4:20 MINLEN:50 -threads 10
+
+#Metagenoma: C1B
+Input Read Pairs: 3770606 Both Surviving: 3346089 (88.74%) Forward Only Surviving: 276892 (7.34%) Reverse Only Surviving: 86799 (2.30%) Dropped: 60826 (1.61%)
+$ trimmomatic PE /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-C1-B_R1.fastq  /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-C1-B_R2.fastq C1B_R1_trimmed.fastq C1B_R1_trimmed_UNP.fastq C1B_R2_trimmed.fastq C1B_R2_trimmed_UNP.fastq SLIDINGWINDOW:4:20 MINLEN:50 -threads 10
+
+
+#Metagenoma: P1A
+Input Read Pairs: 602273 Both Surviving: 557475 (92.56%) Forward Only Surviving: 25376 (4.21%) Reverse Only Surviving: 14053 (2.33%) Dropped: 5369 (0.89%)
+$ trimmomatic PE /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-P1-A_R1.fastq  /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-P1-A_R2.fastq P1A_R1_trimmed.fastq P1A_R1_trimmed_UNP.fastq P1A_R2_trimmed.fastq P1A_R2_trimmed_UNP.fastq SLIDINGWINDOW:4:20 MINLEN:50 -threads 10
+
+
+#Metagenoma: P1B
+Input Read Pairs: 3668707 Both Surviving: 3292933 (89.76%) Forward Only Surviving: 239075 (6.52%) Reverse Only Surviving: 83209 (2.27%) Dropped: 53490 (1.46%)
+$ trimmomatic PE /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-P1-B_R1.fastq  /home/sheila.silva.bio/Primeagro/Primeagro_teste_empresa/00-Dados-Brutos/GENOMA_Amostra-P1-B_R2.fastq P1B_R1_trimmed.fastq P1B_R1_trimmed_UNP.fastq P1B_R2_trimmed.fastq P1B_R2_trimmed_UNP.fastq SLIDINGWINDOW:4:20 MINLEN:50 -threads 10
+
+
+#STEP2: KRAKEN2_PlusPFP
+#Metagenoma: C1A
+(kraken2) [sheila.silva.bio@localhost sheila]$  kraken2 --db /home/sheila.silva.bio/kraken2_pluspfp/pluspfp/  --report  --use-names --t 10 /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq  /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq  --output /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/C1A2_Scr_kraken2pluspfp.tabular
+Loading database information... done.
+608482 sequences (154.55 Mbp) processed in 557.554s (65.5 Kseq/m, 16.63 Mbp/m).
+  365828 sequences classified (60.12%)
+  242654 sequences unclassified (39.88%)
+
+#Metagenoma: C1B
+ $ kraken2 --db /home/sheila.silva.bio/kraken2_pluspfp/pluspfp/  --report  --use-names --t 10 /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq  /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq  --output /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/C1B_Scr_kraken2pluspfp.tabular
+
+(kraken2) [sheila.silva.bio@localhost sheila]$  kraken2 --db /home/sheila.silva.bio/kraken2_pluspfp/pluspfp/  --report  --use-names --t 10 /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq  /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq  --output /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/C1B_Scr_kraken2pluspfp.tabular
+Loading database information... done.
+6692178 sequences (1785.32 Mbp) processed in 754.520s (532.2 Kseq/m, 141.97 Mbp/m).
+  3513750 sequences classified (52.51%)
+  3178428 sequences unclassified (47.49%)
+
+#Metagenoma: P1A
+(kraken2) [sheila.silva.bio@localhost sheila]$  kraken2 --db /home/sheila.silva.bio/kraken2_pluspfp/pluspfp/  --report  --use-names --t 10 /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/P1A_R1_trimmed.fastq  /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/P1A_R2_trimmed.fastq  --output /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/P1A_Scr_kraken2pluspfp.tabular
+Loading database information... done.
+1114950 sequences (282.95 Mbp) processed in 636.948s (105.0 Kseq/m, 26.65 Mbp/m).
+  733940 sequences classified (65.83%)
+  381010 sequences unclassified (34.17%)
+
+
+#Metagenoma: P1B
+(kraken2) [sheila.silva.bio@localhost sheila]$  kraken2 --db /home/sheila.silva.bio/kraken2_pluspfp/pluspfp/  --report  --use-names --t 10 /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/P1B_R1_trimmed.fastq  /home/sheila.silva.bio/Primeagro/sheila/01-Trimmomatic_Scr/P1B_R2_trimmed.fastq  --output /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/P1B_Scr_kraken2pluspfp.tabular
+Loading database information... done.
+6585866 sequences (1764.42 Mbp) processed in 1860.949s (212.3 Kseq/m, 56.89 Mbp/m).
+  3427971 sequences classified (52.05%)
+  3157895 sequences unclassified (47.95%)
+
+
+
+
+#STEP3: Filtrar as reads de staphylococcus
+#Metagenoma: C1A
+(kraken2) [sheila.silva.bio@localhost 02-kraken_pfp_Scr]$ python ~/KrakenTools-master/extract_kraken_reads.py -k ~/Primeagro/sheila/02-kraken_pfp_Scr/C1A2_Scr_kraken2pluspfp.tabular -s1 ~/Primeagro/sheila/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq -s2 ~/Primeagro/sheila/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq -o ~/Primeagro/sheila/C1A_EXTRACT_R1.fasta -o2 ~/Primeagro/sheila/C1A_EXTRACT_R2.fasta -t 1280
+PROGRAM START TIME: 09-27-2023 04:03:00
+        1 taxonomy IDs to parse
+>> STEP 1: PARSING KRAKEN FILE FOR READIDS /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/C1A2_Scr_kraken2pluspfp.tabular
+        0.61 million reads processed
+        13138 read IDs saved
+>> STEP 2: READING SEQUENCE FILES AND WRITING READS
+        13138 read IDs found (0.30 mill reads processed)
+        13138 read IDs found (0.30 mill reads processed)
+        13138 reads printed to file
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/C1A_EXTRACT_R1.fasta
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/C1A_EXTRACT_R2.fasta
+PROGRAM END TIME: 09-27-2023 04:03:13
+
+
+#Metagenoma: C1B
+(kraken2) [sheila.silva.bio@localhost sheila]$ python ~/KrakenTools-master/extract_kraken_reads.py -k ~/Primeagro/sheila/02-kraken_pfp_Scr/C1B_Scr_kraken2pluspfp.tabular -s1 ~/Primeagro/sheila/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq -s2 ~/Primeagro/sheila/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq -o ~/Primeagro/sheila/03-extract_kraken_reads/C1B_EXTRACT_R1.fasta -o2 ~/Primeagro/sheila/03-extract_kraken_reads/C1B_EXTRACT_R2.fasta -t 1280
+PROGRAM START TIME: 09-27-2023 04:08:06
+        1 taxonomy IDs to parse
+>> STEP 1: PARSING KRAKEN FILE FOR READIDS /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/C1B_Scr_kraken2pluspfp.tabular
+        6.69 million reads processed
+        121919 read IDs saved
+>> STEP 2: READING SEQUENCE FILES AND WRITING READS
+        121919 read IDs found (3.35 mill reads processed)
+        121919 read IDs found (3.35 mill reads processed)
+        121919 reads printed to file
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/03-extract_kraken_reads/C1B_EXTRACT_R1.fasta
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/03-extract_kraken_reads/C1B_EXTRACT_R2.fasta
+PROGRAM END TIME: 09-27-2023 04:10:42
+
+
+#Metagenoma: P1A
+(kraken2) [sheila.silva.bio@localhost sheila]$ python ~/KrakenTools-master/extract_kraken_reads.py -k ~/Primeagro/sheila/02-kraken_pfp_Scr/P1A_Scr_kraken2pluspfp.tabular -s1 ~/Primeagro/sheila/01-Trimmomatic_Scr/P1A_R1_trimmed.fastq -s2 ~/Primeagro/sheila/01-Trimmomatic_Scr/P1A_R2_trimmed.fastq -o ~/Primeagro/sheila/03-extract_kraken_reads/P1A_EXTRACT_R1.fasta -o2 ~/Primeagro/sheila/03-extract_kraken_reads/P1A_EXTRACT_R2.fasta -t 1280
+PROGRAM START TIME: 09-27-2023 04:17:38
+        1 taxonomy IDs to parse
+>> STEP 1: PARSING KRAKEN FILE FOR READIDS /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/P1A_Scr_kraken2pluspfp.tabular
+        1.11 million reads processed
+        166799 read IDs saved
+>> STEP 2: READING SEQUENCE FILES AND WRITING READS
+        166799 read IDs found (0.56 mill reads processed)
+        166799 read IDs found (0.56 mill reads processed)
+        166799 reads printed to file
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/03-extract_kraken_reads/P1A_EXTRACT_R1.fasta
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/03-extract_kraken_reads/P1A_EXTRACT_R2.fasta
+PROGRAM END TIME: 09-27-2023 04:18:13
+
+
+#Metagenoma: P1B
+(kraken2) [sheila.silva.bio@localhost sheila]$ python ~/KrakenTools-master/extract_kraken_reads.py -k ~/Primeagro/sheila/02-kraken_pfp_Scr/P1B_Scr_kraken2pluspfp.tabular -s1 ~/Primeagro/sheila/01-Trimmomatic_Scr/P1B_R1_trimmed.fastq -s2 ~/Primeagro/sheila/01-Trimmomatic_Scr/P1B_R2_trimmed.fastq -o ~/Primeagro/sheila/03-extract_kraken_reads/P1B_EXTRACT_R1.fasta -o2 ~/Primeagro/sheila/03-extract_kraken_reads/P1B_EXTRACT_R2.fasta -t 1280
+PROGRAM START TIME: 09-27-2023 04:21:45
+        1 taxonomy IDs to parse
+>> STEP 1: PARSING KRAKEN FILE FOR READIDS /home/sheila.silva.bio/Primeagro/sheila/02-kraken_pfp_Scr/P1B_Scr_kraken2pluspfp.tabular
+        6.59 million reads processed
+        556813 read IDs saved
+>> STEP 2: READING SEQUENCE FILES AND WRITING READS
+        556813 read IDs found (3.29 mill reads processed)
+        556813 read IDs found (3.29 mill reads processed)
+        556813 reads printed to file
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/03-extract_kraken_reads/P1B_EXTRACT_R1.fasta
+        Generated file: /home/sheila.silva.bio/Primeagro/sheila/03-extract_kraken_reads/P1B_EXTRACT_R2.fasta
+PROGRAM END TIME: 09-27-2023 04:24:55
+
+
+
+#STEP4: Bowtie Genoma S.aureus X reads_extraidas
+#Metagenoma: C1A
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ bowtie2 -x stap_aureus_db -f -1 ~/Primeagro/sheila/03-extract_kraken_reads/C1A_EXTRACT_R1.fasta -2 ~/Primeagro/sheila/03-extract_kraken_reads/C1A_EXTRACT_R2.fasta -S ~/Primeagro/sheila/04-Bowtie/C1A_extractXgenome.sam --threads 10
+13138 reads; of these:
+  13138 (100.00%) were paired; of these:
+    13137 (99.99%) aligned concordantly 0 times
+    0 (0.00%) aligned concordantly exactly 1 time
+    1 (0.01%) aligned concordantly >1 times
+    ----
+    13137 pairs aligned concordantly 0 times; of these:
+      0 (0.00%) aligned discordantly 1 time
+    ----
+    13137 pairs aligned 0 times concordantly or discordantly; of these:
+      26274 mates make up the pairs; of these:
+        26274 (100.00%) aligned 0 times
+        0 (0.00%) aligned exactly 1 time
+        0 (0.00%) aligned >1 times
+0.01% overall alignment rate
+
+#Metagenoma: C1B
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ bowtie2 -x stap_aureus_db -f -1 ~/Primeagro/sheila/03-extract_kraken_reads/C1B_EXTRACT_R1.fasta -2 ~/Primeagro/sheila/03-extract_kraken_reads/C1B_EXTRACT_R2.fasta -S ~/Primeagro/sheila/04-Bowtie/C1B_extractXgenome.sam --threads 10
+121919 reads; of these:
+  121919 (100.00%) were paired; of these:
+    121917 (100.00%) aligned concordantly 0 times
+    0 (0.00%) aligned concordantly exactly 1 time
+    2 (0.00%) aligned concordantly >1 times
+    ----
+    121917 pairs aligned concordantly 0 times; of these:
+      0 (0.00%) aligned discordantly 1 time
+    ----
+    121917 pairs aligned 0 times concordantly or discordantly; of these:
+      243834 mates make up the pairs; of these:
+        243829 (100.00%) aligned 0 times
+        0 (0.00%) aligned exactly 1 time
+        5 (0.00%) aligned >1 times
+0.00% overall alignment rate
+
+#Metagenoma: P1A
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ bowtie2 -x stap_aureus_db -f -1 ~/Primeagro/sheila/03-extract_kraken_reads/P1A_EXTRACT_R1.fasta -2 ~/Primeagro/sheila/03-extract_kraken_reads/P1A_EXTRACT_R2.fasta -S ~/Primeagro/sheila/04-Bowtie/P1A_extractXgenome.sam --threads 10
+166799 reads; of these:
+  166799 (100.00%) were paired; of these:
+    166798 (100.00%) aligned concordantly 0 times
+    0 (0.00%) aligned concordantly exactly 1 time
+    1 (0.00%) aligned concordantly >1 times
+    ----
+    166798 pairs aligned concordantly 0 times; of these:
+      0 (0.00%) aligned discordantly 1 time
+    ----
+    166798 pairs aligned 0 times concordantly or discordantly; of these:
+      333596 mates make up the pairs; of these:
+        333595 (100.00%) aligned 0 times
+        0 (0.00%) aligned exactly 1 time
+        1 (0.00%) aligned >1 times
+0.00% overall alignment rate
+
+
+#Metagenoma:P2A
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ bowtie2 -x stap_aureus_db -f -1 ~/Primeagro/sheila/03-extract_kraken_reads/P1B_EXTRACT_R1.fasta -2 ~/Primeagro/sheila/03-extract_kraken_reads/P1B_EXTRACT_R2.fasta -S ~/Primeagro/sheila/04-Bowtie/P1B_extractXgenome.sam --threads 10
+556813 reads; of these:
+  556813 (100.00%) were paired; of these:
+    556794 (100.00%) aligned concordantly 0 times
+    0 (0.00%) aligned concordantly exactly 1 time
+    19 (0.00%) aligned concordantly >1 times
+    ----
+    556794 pairs aligned concordantly 0 times; of these:
+      0 (0.00%) aligned discordantly 1 time
+    ----
+    556794 pairs aligned 0 times concordantly or discordantly; of these:
+      1113588 mates make up the pairs; of these:
+        1113583 (100.00%) aligned 0 times
+        0 (0.00%) aligned exactly 1 time
+        5 (0.00%) aligned >1 times
+0.00% overall alignment rate
+
+#Step 5: Samtools
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ ls
+C1A_extractXgenome.bam      C1B_extractXgenome.bam.bai             P1A_extractXgenome.bam.bai  P1B_extractXgenome.sam           stap_aureus_db.3.bt2
+C1A_extractXgenome.bam.bai  C1B_extractXgenome.sam                 P1A_extractXgenome.sam      S.aureus_refseq_GCF_000013425.1  stap_aureus_db.4.bt2
+C1A_extractXgenome.sam      GCF_000013425.1_ASM1342v1_genomic.fna  P1B_extractXgenome.bam      stap_aureus_db.1.bt2             stap_aureus_db.rev.1.bt2
+C1B_extractXgenome.bam      P1A_extractXgenome.bam                 P1B_extractXgenome.bam.bai  stap_aureus_db.2.bt2             stap_aureus_db.rev.2.bt2
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ samtools view -c -F 260 C1A_extractXgenome.bam
+2
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ samtools view -c -F 260 C1B_extractXgenome.bam
+9
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ samtools view -c -F 260 P1A_extractXgenome.bam
+3
+(base) [sheila.silva.bio@localhost 04-Bowtie]$ samtools view -c -F 260 P1B_extractXgenome.bam
+43
+
+
+
+#Step 6: Kraken2 / db: Standard
+#Metagenoma: C1A
+$ screen
+$ conda activate kraken2
+$ kraken2 --db ~/kraken2-std-db/ --report --use-names --t 10 ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq --output ~/Primeagro/sheila/TESTE/05-standard/C1A_standard.tabular
+
+(kraken2) [sheila.silva.bio@localhost 05-standard]$ kraken2 --db ~/kraken2-std-db/ --report --use-names --t 10 ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq --output ~/Primeagro/sheila/TESTE/05-standard/C1A_standard.tabular
+Loading database information... done.
+608482 sequences (154.55 Mbp) processed in 2.775s (13155.9 Kseq/m, 3341.54 Mbp/m).
+  364275 sequences classified (59.87%)
+  244207 sequences unclassified (40.13%)
+
+#Metagenoma: C1B
+(kraken2) [sheila.silva.bio@localhost 05-standard]$ kraken2 --db ~/kraken2-std-db/ --report --use-names --t 10 ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq --output ~/Primeagro/sheila/TESTE/05-standard/C1B_standard.tabular
+Loading database information... done.
+6692178 sequences (1785.32 Mbp) processed in 538.782s (745.3 Kseq/m, 198.82 Mbp/m).
+  3492454 sequences classified (52.19%)
+  3199724 sequences unclassified (47.81%)
+
+#Metagenoma: P1A
+(kraken2) [sheila.silva.bio@localhost 05-standard]$ kraken2 --db ~/kraken2-std-db/ --report --use-names --t 10 ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R2_trimmed.fastq --output ~/Primeagro/sheila/TESTE/05-standard/P1A_standard.tabular
+Loading database information... done.
+1114950 sequences (282.95 Mbp) processed in 5.397s (12394.6 Kseq/m, 3145.50 Mbp/m).
+  730291 sequences classified (65.50%)
+  384659 sequences unclassified (34.50%)
+
+#Metagenoma: P1B
+(kraken2) [sheila.silva.bio@localhost 05-standard]$ kraken2 --db ~/kraken2-std-db/ --report --use-names --t 10 ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R2_trimmed.fastq --output ~/Primeagro/sheila/TESTE/05-standard/P1B_standard.tabular
+Loading database information... done.
+6585866 sequences (1764.42 Mbp) processed in 30.212s (13079.3 Kseq/m, 3504.09 Mbp/m).
+  3405649 sequences classified (51.71%)
+  3180217 sequences unclassified (48.29%)
+
+#Juntando os relatórios do Kraken2
+
+(kraken2) [sheila.silva.bio@localhost 05-Kraken_standard]$ python ~/KrakenTools-master/combine_kreports.py -r ~/Primeagro/sheila/TESTE/05-Kraken_standard/C1A_standard.tabular ~/KrakenTools-master/combine_kreports.py -r ~/Primeagro/sheila/TESTE/05-Kraken_standard/C1B_standard.tabular ~/KrakenTools-master/combine_kreports.py -r C1A_standard.tabular C1B_standard.tabular P1A_standard.tabular P1B_standard.tabular  --output Allreport_standard  --display-header
+>>STEP 1: READING REPORTS
+        4/4 samples processed
+>>STEP 2: WRITING NEW REPORT HEADERS
+>>STEP 3: PRINTING REPORT
+Traceback (most recent call last):
+  File "/home/sheila.silva.bio/KrakenTools-master/combine_kreports.py", line 311, in <module>
+    main()
+  File "/home/sheila.silva.bio/KrakenTools-master/combine_kreports.py", line 275, in main
+    o_file.write("%0.4f\t" % (float(u_reads[0])/float(total_reads[0])*100))
+ZeroDivisionError: float division by zero
+
+
+
+
+#Kraken2 - DB PlusPF (2021-05-17) linha de comando
+
+#Metagenoma C1A
+$ kraken2 --db ~/Kraken2_plusPF-2021.05.17/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq --use-names --t 10 --report ~/Primeagro/sheila/TESTE/06-krakes_pluspf2021/C1A_plusPF2021Line.tabular
+304241 sequences (154.55 Mbp) processed in 91.797s (198.9 Kseq/m, 101.02 Mbp/m).
+  207985 sequences classified (68.36%)
+  96256 sequences unclassified (31.64%)
+
+#Metagenoma C1B
+$ kraken2 --db ~/Kraken2_plusPF-2021.05.17/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq --use-names --t 10 --report ~/Primeagro/sheila/TESTE/06-krakes_pluspf2021/C1B_plusPF2021Line.tabular
+Loading database information...
+3346089 sequences (1785.32 Mbp) processed in 1459.610s (137.5 Kseq/m, 73.39 Mbp/m).
+  2061944 sequences classified (61.62%)
+  1284145 sequences unclassified (38.38%)
+
+
+#Metagenoma P1A
+$ kraken2 --db ~/Kraken2_plusPF-2021.05.17/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/06-krakes_pluspf2021/P1A_plusPF2021Line.tabular
+557475 sequences (282.95 Mbp) processed in 828.883s (40.4 Kseq/m, 20.48 Mbp/m).
+  411269 sequences classified (73.77%)
+  146206 sequences unclassified (26.23%)
+
+
+#Metagenoma P1B
+$ kraken2 --db ~/Kraken2_plusPF-2021.05.17/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/06-krakes_pluspf2021/P1B_plusPF2021Line.tabular
+3292933 sequences (1764.42 Mbp) processed in 1565.228s (126.2 Kseq/m, 67.64 Mbp/m).
+  2017472 sequences classified (61.27%)
+  1275461 sequences unclassified (38.73%)
+
+
+
+#Kraken2 DB: plusPF 2023 - linha de comando
+#Metagenoma C1A
+$ kraken2 --db ~/genome-idx.s3.amazonaws.com/kraken/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/07-kraken_pluspf2023/C1A_plusPF2023Line.tabular 
+304241 sequences (154.55 Mbp) processed in 72.370s (252.2 Kseq/m, 128.13 Mbp/m).
+  217433 sequences classified (71.47%)
+  86808 sequences unclassified (28.53%)
+
+
+#Metagenoma C1B
+$ kraken2 --db ~/genome-idx.s3.amazonaws.com/kraken/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/07-kraken_pluspf2023/C1B_plusPF2023Line.tabular
+3346089 sequences (1785.32 Mbp) processed in 942.420s (213.0 Kseq/m, 113.66 Mbp/m).
+  2187777 sequences classified (65.38%)
+  1158312 sequences unclassified (34.62%)
+
+#MetagenomaP1A
+$ kraken2 --db ~/genome-idx.s3.amazonaws.com/kraken/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/07-kraken_pluspf2023/P1A_plusPF2023Line.tabular
+557475 sequences (282.95 Mbp) processed in 165.330s (202.3 Kseq/m, 102.69 Mbp/m).
+  424775 sequences classified (76.20%)
+  132700 sequences unclassified (23.80%)
+
+
+#Metagenoma P1B 
+$ kraken2 --db ~/genome-idx.s3.amazonaws.com/kraken/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/07-kraken_pluspf2023/P1B_plusPF2023Line.tabular
+
+3292933 sequences (1764.42 Mbp) processed in 1543.640s (128.0 Kseq/m, 68.58 Mbp/m).
+  2135964 sequences classified (64.87%)
+  1156969 sequences unclassified (35.13%)
+
+
+#kRAKEN2 DB: PLusPFP 2023 NOVO
+#Metagenoma C1A
+$ kraken2 --db ~/kraken2_pluspfp/pluspfp/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/02-kraken_pfp2023_Scr/C1A_plusPFP2023Line.tabular
+304241 sequences (154.55 Mbp) processed in 189.120s (96.5 Kseq/m, 49.03 Mbp/m).
+  219470 sequences classified (72.14%)
+  84771 sequences unclassified (27.86%)
+
+#Metagenoma C1B
+$ kraken2 --db ~/kraken2_pluspfp/pluspfp/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/02-kraken_pfp2023_Scr/C1B_plusPFP2023Line.tabular
+3346089 sequences (1785.32 Mbp) processed in 2630.119s (76.3 Kseq/m, 40.73 Mbp/m).
+  2216433 sequences classified (66.24%)
+  1129656 sequences unclassified (33.76%)
+
+#Metagenoma P1A
+$ kraken2 --db ~/kraken2_pluspfp/pluspfp/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/02-kraken_pfp2023_Scr/P1A_plusPFP2023Line.tabular
+557475 sequences (282.95 Mbp) processed in 3474.277s (9.6 Kseq/m, 4.89 Mbp/m).
+  428486 sequences classified (76.86%)
+  128989 sequences unclassified (23.14%)
+
+#Metagenoma P1B
+$ kraken2 --db ~/kraken2_pluspfp/pluspfp/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/02-kraken_pfp2023_Scr/P1B_plusPFP2023Line.tabular
+3292933 sequences (1764.42 Mbp) processed in 980.509s (201.5 Kseq/m, 107.97 Mbp/m).
+  2165650 sequences classified (65.77%)
+  1127283 sequences unclassified (34.23%)
+
+
+#Standard2023_linecommand-NOVO
+#Metagenoma C1A
+$ kraken2 --db ~/kraken2-std-db/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1A_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/05-Kraken_standard2023/C1A_standard2023Line.tabular
+304241 sequences (154.55 Mbp) processed in 474.171s (38.5 Kseq/m, 19.56 Mbp/m).
+  218328 sequences classified (71.76%)
+  85913 sequences unclassified (28.24%)
+
+#Metagenoma C1B
+$ kraken2 --db ~/kraken2-std-db/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/C1B_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/05-Kraken_standard2023/C1B_standard2023Line.tabular
+3346089 sequences (1785.32 Mbp) processed in 4591.282s (43.7 Kseq/m, 23.33 Mbp/m).
+  2199931 sequences classified (65.75%)
+  1146158 sequences unclassified (34.25%) 
+
+#Metagenoma P1A
+$  kraken2 --db ~/kraken2-std-db/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1A_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/05-Kraken_standard2023/P1A_standard2023Line.tabular
+557475 sequences (282.95 Mbp) processed in 1031.903s (32.4 Kseq/m, 16.45 Mbp/m).
+  426049 sequences classified (76.42%)
+  131426 sequences unclassified (23.58%)
+
+#Metagenoma P1B
+$ kraken2 --db ~/kraken2-std-db/ --paired ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R1_trimmed.fastq ~/Primeagro/sheila/TESTE/01-Trimmomatic_Scr/P1B_R2_trimmed.fastq  --use-names --t 10 --report ~/Primeagro/sheila/TESTE/05-Kraken_standard2023/P1B_standard2023Line.tabular
+3292933 sequences (1764.42 Mbp) processed in 4486.310s (44.0 Kseq/m, 23.60 Mbp/m).
+  2148537 sequences classified (65.25%)
+  1144396 sequences unclassified (34.75%)
+
+
+
+#Obs para visulizar as sequencias
+$ kraken2 --db nome_do_banco_de_dados --threads número_de_threads --report relatorio.txt sequencias.fastq
+
+#run pavian online
+https://fbreitwieser.shinyapps.io/pavian/
+

@@ -1,0 +1,32 @@
+$ perl fastaNamesSizes.pl  ~/Peixes_metagenomica/04-MetaSPAdes/1C1/1C1_scaffolds.fasta > 1C1_size.txt
+
+# 7767 sequences, total length 2662247.
+# Minimum len: 56. Max: 5284. Average: 343
+
+
+$ perl fastaNamesSizes.pl  ~/Peixes_metagenomica/04-MetaSPAdes/426/scaffolds.fasta > 1C2_size.txt
+# 15225 sequences, total length 6413150.
+# Minimum len: 56. Max: 3559. Average: 421
+
+
+$ perl fastaNamesSizes.pl  ~/Peixes_metagenomica/04-MetaSPAdes/1C3/1C3.scaffolds.fasta > 1C3_size.txt
+# 5609 sequences, total length 2830567.
+# Minimum len: 56. Max: 6799. Average: 505
+
+$ perl fastaNamesSizes.pl  ~/Peixes_metagenomica/04-MetaSPAdes/1C4/scaffolds.fasta > 1C4_size.txt
+# 8947 sequences, total length 3539344.
+# Minimum len: 56. Max: 5264. Average: 396
+
+$ perl fastaNamesSizes.pl  ~/Peixes_metagenomica/04-MetaSPAdes/1C5/scaffolds.fasta > 1C5_size.txt
+# 8322 sequences, total length 2843095.
+# Minimum len: 56. Max: 5190. Average: 342 
+
+$  perl fastaNamesSizes.pl  ~/Peixes_metagenomica/04-MetaSPAdes/373/scaffolds.fasta > 373_size.txt
+# 248 sequences, total length 53611.
+# Minimum len: 56. Max: 343. Average: 216
+
+$ perl fastaNamesSizes.pl  ~/Peixes_metagenomica/04-MetaSPAdes/427_Ate_metabat2/scaffolds.fasta > 377_size.txt
+# 15225 sequences, total length 6413150.
+# Minimum len: 56. Max: 3559. Average: 421
+
+$ 

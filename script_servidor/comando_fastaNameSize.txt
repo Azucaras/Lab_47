@@ -1,0 +1,3 @@
+$ perl fastaNamesSizes.pl ArquivoEntrada.fasta > ArquivoSaida.txt
+
+perl fastaNamesSizes.pl ~/joaoricardo/spades/scaffolds.fasta > ~/joaoricardo/spades/tamanho_spades.txt

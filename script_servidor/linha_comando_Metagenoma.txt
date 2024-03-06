@@ -1,0 +1,125 @@
+#Dados
+
+#cassia:Sheila
+
+#SWABS
+367 = 1C1
+368 = 1C2
+369 = 1C3
+370 = 1C4
+371 = 1C5
+
+#Filtros
+372 = 377
+375 = 387
+376 = 390
+374 = 381
+373 = 386 #não entrou no relatório#
+
+
+
+#Passo1: analisar os dados brutos [fastqc]
+
+$ fastqc *.gz 
+
+#Passo2: Trimar as reads brutas [Trimmomatic] - com script 
+
+$ source auto_trim2.sh *
+
+
+#Passo3: Rodar [Fastqc] novamente
+
+$ fastqc *
+
+#Passo4: Montar os contigs [MetaSpades]
+
+$ /home/sheila.silva.bio/Tools/spades/SPAdes-3.14.1-Linux/bin/metaspades.py --pe1-1  ~/Peixes_metagenomica/02-Trimmomatic/367_S7_L001_R1_pair_001.fastq --pe1-2 ~/Peixes_metagenomica/02-Trim$
+
+
+#Passo5: Rodar o programa de estatísticas de montagem [MetaQuast]
+
+$ conda activate python2.7
+$ metaquast.py 367_scaffolds.fasta -t 8 -o metaquast_368/
+
+
+#Passo6: Mapeamento do Fastq (R1 e R2) X Montagem MetaSPAdes [Bowtie]
+#Passo6.1: Bowtie-index: Contruir o index (saída do MetaSPAdes - scafoold.fasta) 
+
+$  bowtie2-build -f ~/Peixes_metagenomica/04-MetaSPAdes/1C1/scaffolds.fasta 1C1_Scaffold_indicebowtie
+
+#Passo6.2: Bowtie-alinhamento: (index x R1.fastq  e R2.fastq) 
+
+$ bowtie2 -x 1C1_Scaffold_indicebowtie -1 ~/Peixes_metagenomica/00-Dados_brutos/367_S7_L001_R1_001.fastq -2 ~/Peixes_metagenomica/00-Dados_brutos/367_S7_L001_R2_001.fastq --un-conc unmapped_1C1.fq --al-conc mapped_1C1.fq -S alinhamento_1C1.sam --fast --threads 8
+
+#Passo6.3:Samtools-Bowtie: (Indexar sua montagem para o downstream)vai criar um arquivo: scaffolds.fasta.fai     
+
+$ /home/sheila.silva.bio/Tools/samtools-1.11/samtools faidx ~/Peixes_metagenomica/04-MetaSPAdes/1C1/scaffolds.fasta
+
+
+#Passo6.4: Samtools-criar o bam: Nao usei o  scaffolds.fasta.fai estava dando erro
+
+$  /home/sheila.silva.bio/Tools/samtools-1.11/samtools view -bT scaffolds.fasta alinhamento_1C1.sam >  alinhamento_1C1.bam 
+
+
+#Passo6.5: Samtools-classificar o Bam:
+
+$ /home/sheila.silva.bio/Tools/samtools-1.11/samtools sort -@ 8 alinhamento_1C1.bam -o alinhamento_1C1_sort.bam
+
+mensagem normal- nao e erro: [bam_sort_core] merging from 0 files and 8 in-memory blocks...
+
+Anotação(Vicente): ~/Tools/samtools-1.11/samtools sort -@ 8 alinhamento_427.bam -o alinhamento_427_sort.bam → Esse foi o comando que funcionou.
+
+#Passo6.6: Samtools-index do bam 
+
+$  /home/sheila.silva.bio/Tools/samtools-1.11/samtools index -@ 8 alinhamento_1C1_sort.bam 
+
+
+#Passo6.7: Samtools gerar estatística 
+
+$ /home/sheila.silva.bio/Tools/samtools-1.11/samtools idxstats -@ 8 alinhamento_1C1_sort.bam > alinhamento_1C1_sort_idxstats.txt  
+
+
+
+#Passo7: [MetaBat2] Montar os bins 
+#passo7.1: passo: a) Gerar um arquivo de profundidade a partir de arquivos BAM. 
+- Gerou o arquivo:  depth.txt 
+
+$ jgi_summarize_bam_contig_depths  --outputDepth depth.txt alinhamento_1C1_sort.bam
+
+
+Output depth matrix to depth.txt
+
+
+
+#passo7.2: passo: b)
+$ metabat2 -i scaffolds.fasta -a depth.txt -o bin_1C1 -v -t 8 --unbinned 
+
+#Passo8: [MetaBin2] Montar os bins (Alternativo)
+$ run_MaxBin.pl -contig /home/sheila.silva.bio/Peixes_metagenomica/04-MetaSPAdes/390/scaffolds.fasta -reads /home/sheila.silva.bio/Peixes_metagenomica/00-Dados_brutos/376_S16_L001_R1_001.fastq -reads2 /home/sheila.silva.bio/Peixes_metagenomica/00-Dados_brutos/376_S16_L001_R2_001.fastq -out ~/Peixes_metagenomica/07-Maxbin/maxbin_376
+
+
+#Passo9 CheckM: Rodando o CheckM para a saída (scaffolds.fasta) do MetaSPAdes. 
+para rodar o checkM tem que dar o diretorio onde está o fasta (diretorio contenfo apenas o fasta) 
+-x é a extensao do fasta (fa fasta)
+
+$ checkm lineage_wf ~/Peixes_metagenomica/04-MetaSPAdes/1C1/scaffold ~/Peixes_metagenomica/08-CheckM/1C1 -t 8 -x fasta 
+
+
+#Passo10:Rodando o MaxBin2 [ao invés de MetaBat2] Setando para tamanho 200 pb
+
+$ run_MaxBin.pl -contig ~/Peixes_metagenomica/04-MetaSPAdes/390/scaffolds.fasta -reads ~/Peixes_metagenomica/00-Dados_brutos/376_S16_L001_R1_001.fastq  -reads2 ~/Peixes_metagenomica/00-Dados_brutos/376_S16_L001_R2_001.fastq  -out 390_200 -min_contig_length 200
+
+
+
+#Passo11 Prodigal:
+
+Comando exemplo os parametros são explicado de maneira compreensivel no "-h":
+Disclaimer: É preciso botar o tipo de arquivo que é o output.
+
+prodigal -a ~/Peixes_metagenomica/09-prodigal/prodigal_427/427.faa -d ~/Peixes_metagenomica/09-prodigal/prodigal_427/427.ffn -i ~/Peixes_metagenomica/07-Maxbin/maxbin_427/maxbin_427.001.fasta -o ~/Peixes_metagenomica/09-prodigal/prodigal_427/427.gbk -p meta -s ~/Peixes_metagenomica/09-prodigal/prodigal_427/genes_2.gff
+
+#Passo12 COG:
+
+rpsblast -db ~/Downloads/Cog -query ~/Downloads/1C3.faa ~/Downloads/1C3_2.faa -out ~/Downloads/1C3.txt -evalue 1e-05 -outfmt '6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qcovs' -num_threads 4
+
+https://rpubs.com/ednachiang/425650

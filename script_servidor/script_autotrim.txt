@@ -1,0 +1,8 @@
+$ source auto_trim2.sh *
+
+$ source auto_trim2.sh *fq
+
+$ source auto_trim2.sh *fq.gz
+
+
+

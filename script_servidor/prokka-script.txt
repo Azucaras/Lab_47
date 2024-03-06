@@ -1,0 +1,15 @@
+#Passo 10: Prokka - anotação funcional
+$ conda activate prokka_env
+
+$ ls *.fna | parallel --verbose "prokka --metagenome {} --prefix {.}_out --outdir  ~/Primeagro/sheila/coleta3_lagbio/09-prokka/prokka_out/{.}_prokka --cpus 10"
+
+# SETAR O NUMERO DE NUCLEOS USADOS!!!! Máximo 8.
+# fasta = fna
+# parallel = fasta canalizado em paralelo, ler sobre GNU Parallel
+# -- verbose = apresneta o comando na tela no momento em que está rodando
+# Prokka = chamar a ferramenta
+# {} = nome do fasta será baseado nos nomes dos arquivos fasta de entrada, sem a extensão .fasta
+# -- prefix {.}_out = nome do arquivo de saída
+# -- outdir ~/[caminho]/prokka_out/{.}_prokka
+# -- dry_run = imprimir os coamndos sem rodar.
+
